@@ -1,1 +1,5 @@
-#include "head.h" 
+#include "head.h"
+
+int main(){
+    affiche(3);
+}
