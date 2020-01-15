@@ -1,5 +1,12 @@
 #include <stdio.h>
 #include "head.h"
-void affiche(int i){
-    printf("%d",i);
+#define PipeInPath "/tmp/projetC/mainPipeInput"
+#define PipeOutPath "/tmp/projetC/mainPipeOutput"
+
+
+
+
+
+void startServ(){
+    printf("new serv");
 }
