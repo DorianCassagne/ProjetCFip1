@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <stdio.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
@@ -28,3 +29,21 @@ int main()
 
     return 0;
 }
+=======
+#include "head.h"
+#include <stdio.h>
+
+int MQcount;
+
+
+void startServ(){
+    writeLog("demarrage du serveur principal");
+    startMQ();
+    while(1){
+        waitConnection();
+        int sendNewMq();
+        if(fork()==0)
+            starSecServ();
+    }
+}
+>>>>>>> ba26162779e992c15716f47438d5442c59a5df97
