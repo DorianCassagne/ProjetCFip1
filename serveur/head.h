@@ -10,8 +10,12 @@ struct data
 }typedef Data;
 
 
-
-
 void affiche(int i);
 
 void writeLog(char* msg);
+
+void startServ();
+
+void sendStrucuture(Data);
+
+Data* reciveStruture();

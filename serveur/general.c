@@ -4,5 +4,5 @@
 
 
 void writeLog(char* msg){
-    printf("log: %s", msg);
+    printf("log: %s\n", msg);
 }
