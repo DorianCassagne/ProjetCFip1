@@ -14,7 +14,7 @@ void affiche(int i);
 
 void writeLog(char* msg);
 
-void startServ();
+void startServ(int mewMq);
 
 void sendStrucuture(Data);
 

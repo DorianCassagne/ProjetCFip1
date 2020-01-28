@@ -9,8 +9,8 @@ void startServ(){
     startMQ();
     while(1){
         waitConnection();
-        int sendNewMq();
+        int newMq = sendNewMq();
         if(fork()==0)
-            starSecServ();
+            starSecServ(newMq);
     }
 }
