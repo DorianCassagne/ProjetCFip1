@@ -14,8 +14,10 @@ void affiche(int i);
 
 void writeLog(char* msg);
 
-void startServ(int mewMq);
+void startServ();
 
 void sendStrucuture(Data);
+
+void startSecServ(int newMQ);
 
 Data* reciveStruture();
