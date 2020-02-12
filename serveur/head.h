@@ -47,7 +47,7 @@ void sendStructure(Data* data, TubeStruct* ts);
 
 Data* reciveStruture(TubeStruct* ts);
 
-void startSecServ(int newMQ);
+void startSecServ(char* newMQ);
 
 char* createNewMq(int * valueInc);
 
@@ -57,3 +57,4 @@ void* sendNewMq(void * arg);
 
 char* myStrcat(char* arr1,char* arr2);
 
+void starSecServ(char *);

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <string.h>
+#include <unistd.h> 
 
 
 struct threadStruct{
@@ -29,11 +30,20 @@ void startServ(){
 
         pthread_create(&thread, NULL, sendNewMq, (void *) arg);
         pthread_join(thread,NULL);
-        countPipe++;
         writeLog("fin thread");
         //fin exemple de thread
         closePipe(mainTube);
+        char str[10];
+        sprintf(str, "%d", countPipe);
+        char * newPipe = myStrcat(LogPath, str);
+        if(fork()==0) {
+            
+            starSecServ(newPipe);
 
+    exit(0);
+        }
+
+        countPipe++;
         
         
 

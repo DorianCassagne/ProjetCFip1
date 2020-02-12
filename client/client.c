@@ -6,4 +6,12 @@ void startClient(){
     createReadingPipe(mainTube,MainPipe); 
     Data* dat = reciveStructure(mainTube);
     closePipe(mainTube);
+    //fin reception premier message
+
+
+    TubeStruct* tube = initPipeStruc();
+    createWritingPipe(tube, dat->str);
+
+    createReadingPipe(tube, dat->str);
+
 }
