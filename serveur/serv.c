@@ -30,6 +30,9 @@ void startServ(){
         pthread_join(thread,NULL);
         countPipe++;
         //fin exemple de thread
+
+
+        
         
 
     }

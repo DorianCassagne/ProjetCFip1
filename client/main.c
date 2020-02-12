@@ -2,6 +2,23 @@ int main(){
     
 }
 
+
+#define STR_SIZE 250
+struct tube
+{
+  int write;
+  int read;
+}typedef TubeStruct;
+
+
+struct data
+{
+    int codeRet;//-1 if error erro info in str 0 if empty
+    long data;
+    char str[STR_SIZE];
+}typedef Data;
+
+
 TubeStruct* initPipeStruc(){
   TubeStruct *tube = malloc(sizeof(TubeStruct));
   return tube;
