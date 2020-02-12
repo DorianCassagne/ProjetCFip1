@@ -26,11 +26,13 @@ void createReadingPipe(TubeStruct* tubeS, char* path);
 
 void createWritingPipe(TubeStruct* tubeS, char* path);
 
-void closePipe(TubeStruct tubeS);
+void closePipe(TubeStruct* tubeS);
 
 void sendStructure(Data* data, TubeStruct* ts);
 
-Data* reciveStruture(TubeStruct* ts);
+Data* reciveStructure(TubeStruct* ts);
 
 char* myStrcat(char* arr1,char* arr2);
+
+void startClient();
 

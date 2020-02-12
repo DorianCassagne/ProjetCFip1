@@ -2,7 +2,7 @@
 #define PipeOutPath "/tmp/projC/"
 #define LogPath "/tmp/projC/"
 #define LogFile "/tmp/projC/logServ"
-#define MainPipe "/tmp/mainPipe"
+#define MainPipe "/tmp/projC/mainPipe"
 //#define MainPipe "/tmp/projC/mainPipe"
 
 #define STR_SIZE 250
@@ -41,7 +41,7 @@ void createReadingPipe(TubeStruct* tubeS, char* path);
 
 void createWritingPipe(TubeStruct* tubeS, char* path);
 
-void closePipe(TubeStruct tubeS);
+void closePipe(TubeStruct* tubeS);
 
 void sendStructure(Data* data, TubeStruct* ts);
 

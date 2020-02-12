@@ -11,6 +11,9 @@
 
 #include <sys/fcntl.h>
 
+void writeLog(char * str){
+  printf("%s\n",str);
+}
 
 TubeStruct* initPipeStruc(){
   TubeStruct *tube = malloc(sizeof(TubeStruct));
@@ -21,6 +24,8 @@ void createReadingPipe(TubeStruct *tube,  char* path){
   /* ouverture du tube */
 
     //TODO: decommenter
+
+  writeLog(myStrcat("creation pipe lecture : " ,myStrcat(path,".w")));
   tube->read = open (myStrcat(path,".w"), O_RDONLY);
 }
 
@@ -29,9 +34,12 @@ void createWritingPipe(TubeStruct *tube, char* path){
   mode = S_IRUSR | S_IWUSR;
   /*création du tube nommé */
    mkfifo (myStrcat(path,".r"), mode);
+
+  writeLog(myStrcat("creation pipe ecriture : " ,myStrcat(path,".r")));
     /* ouverture du tube */
     //TODO: decommenter
   tube->write = open (myStrcat(path,".r"), O_WRONLY);
+  writeLog(myStrcat("fin creation pipe ecriture : " ,myStrcat(path,".r")));
 }
 
 char* myStrcat(char* arr1,char* arr2){
@@ -48,6 +56,16 @@ void sendStructure(Data *data, TubeStruct* tub){
 Data* reciveStructure(TubeStruct* tub){
   Data* dataRcv = malloc(sizeof(Data));
   read (tub->read, dataRcv, sizeof(Data));
-  printf("%s\n", dataRcv->str);
+  writeLog("struct recu");
   return dataRcv;
+}
+
+
+void closePipe(TubeStruct* pipe){ 
+    if(pipe->read!=0){
+        close(pipe->read);
+    }
+    if(pipe->write!=0){
+        close(pipe->write);
+    }
 }

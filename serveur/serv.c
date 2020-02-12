@@ -13,11 +13,12 @@ struct threadStruct{
 
 void startServ(){
     writeLog("demarrage du serveur principal");
-    int countPipe = 0;
+    int countPipe = 10;
     TubeStruct* mainTube = initPipeStruc();
-    createWritingPipe(mainTube,MainPipe); 
     while (1)
     {
+
+        createWritingPipe(mainTube,MainPipe); 
 
         //exemple de thread inutile...
         ThreadArg* arg = malloc(sizeof(ThreadArg));
@@ -25,12 +26,13 @@ void startServ(){
         arg->pipe = mainTube;
         pthread_t thread;
 
+
         pthread_create(&thread, NULL, sendNewMq, (void *) arg);
-        
         pthread_join(thread,NULL);
         countPipe++;
+        writeLog("fin thread");
         //fin exemple de thread
-
+        closePipe(mainTube);
 
         
         
@@ -68,7 +70,7 @@ void startServ(){
 void * sendNewMq(void * args){
     ThreadArg* arg =args;
 
-    printf ("%d\n",arg->countpite);
+    
 
 
     char str[10];

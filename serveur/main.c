@@ -3,5 +3,6 @@
 
 int main(){
     initPath();
+    writeLog("test");
     startServ();
 }
