@@ -11,7 +11,7 @@ serv: $(PATHSERV)main.c $(PATHSERV)serv.c $(PATHSERV)servSecondaire.c $(PATHSERV
 
 client: $(PATHCLIENT)main.c 
 	@echo creation executable client
-	$(CC) -o client.exe $(PATHCLIENT)main.c
+	$(CC) -o client.exe $(PATHCLIENT)main.c $(PATHCLIENT)client.c $(PATHCLIENT)general.c
 
 clean:
 	@echo supretion des executable
