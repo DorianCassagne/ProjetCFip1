@@ -101,6 +101,7 @@ ListeChar* insererVal(ListeChar* list,  char val, char after){
         ret->val = val;
         ret->next = list;
         ret->iteration = inserPosi(ret->iteration, after);
+        ret->total = 1;
         return ret;
     }
     if(list->val < val){//valeur a inserer apres
@@ -110,27 +111,8 @@ ListeChar* insererVal(ListeChar* list,  char val, char after){
     //valeur forcement egale donc posistion a inserer
     
     list->iteration = inserPosi(list->iteration, after);
-
+    list->total++;
     return list;
-}
-
-void makeSum(ListeChar* list){
-    while (list != NULL)
-    {
-        int somme = 0;
-
-        ListeCharIt* itL = list->iteration;
-
-        while (itL!=NULL)
-        {
-            somme+= itL->nb;
-            itL=itL->next;
-        }
-        
-        list->total = somme;
-        list = list ->next;
-    }
-    
 }
 
 
@@ -154,6 +136,8 @@ ListeChar* readFile(char* path) {
 
     return list;
 }
+
+
 
 void parcourirLC(ListeChar* list){
     printf("debut parcour\n");
