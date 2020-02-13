@@ -1,5 +1,7 @@
 #include "head.h"
 #include <string.h> 
+#include <stdlib.h>
+#include <stdio.h>
 
 int count_char(Data *tube){
     return strlen(tube->str);
@@ -49,3 +51,125 @@ int operation(Data *tube){
     }
     return result;
 }
+
+
+//prediction char
+
+
+
+
+struct listeCharIt
+{
+    char val;
+    int nb;
+    struct listeCharIt* next;
+} typedef ListeCharIt;
+
+
+struct listeChar
+{
+    char val;
+    int total;
+    struct listeCharIt* iteration;
+    struct listeChar* next;
+} typedef ListeChar; 
+
+ListeCharIt* inserPosi(ListeCharIt* list, char val){
+     if(list == NULL || list->val > val){//fin de liste ou liste vide ou valeur plus petite donc a insérér avant
+        ListeCharIt* ret = malloc(sizeof(ListeCharIt));
+        ret->val = val;
+        ret->next = list;
+        ret->nb=1;
+        return ret;
+    }
+       
+    if(list->val < val){//valeur a inserer apres
+        list->next = inserPosi(list->next,val);
+        return list;
+    }
+
+    //valeur forcement egale donc iteration a incrementer
+    list->nb++;
+    return list;
+
+}
+
+
+ListeChar* insererVal(ListeChar* list,  char val, char after){
+    if(list == NULL || list->val > val){//fin de liste ou liste vide ou valeur plus petite donc a insérér avant
+        ListeChar* ret = malloc(sizeof(ListeChar));
+        ret->val = val;
+        ret->next = list;
+        ret->iteration = inserPosi(ret->iteration, after);
+        return ret;
+    }
+    if(list->val < val){//valeur a inserer apres
+        list->next = insererVal(list->next,val, after);
+        return list;
+    }
+    //valeur forcement egale donc posistion a inserer
+    
+    list->iteration = inserPosi(list->iteration, after);
+
+    return list;
+}
+
+void makeSum(ListeChar* list){
+    while (list != NULL)
+    {
+        int somme = 0;
+
+        ListeCharIt* itL = list->iteration;
+
+        while (itL!=NULL)
+        {
+            somme+= itL->nb;
+            itL=itL->next;
+        }
+        
+        list->total = somme;
+        list = list ->next;
+    }
+    
+}
+
+
+ListeChar* readFile(char* path) {
+    FILE* fp = fopen(path,"r");
+    if (fp == NULL){
+        printf("balbal");
+        exit(0);
+    }
+    ListeChar* list = NULL;
+    char c1= fgetc(fp);
+    if(c1 == EOF)
+        return list;
+    char c2;
+    while((c2 = fgetc(fp)) != EOF){
+        list = insererVal(list,c1,c2);
+        c1 = c2;
+    }
+
+    fclose(fp);
+
+    return list;
+}
+
+void parcourirLC(ListeChar* list){
+    printf("debut parcour\n");
+    while (list!= NULL)
+    {
+        printf("valeur: '%c' ,%d\n", list->val, list->total);
+
+        ListeCharIt* sl = list->iteration;
+        while (sl!= NULL)
+        {
+            printf("    -'%c' , %d\n",sl->val,sl->nb);
+            sl=sl->next;
+        }
+        list = list->next;
+        
+    }
+    
+}
+
