@@ -1,5 +1,8 @@
+#include "head.h"
+#include <string.h> 
+
 int count_char(Data *tube){
-    return strlen(tube->str)
+    return strlen(tube->str);
 }
 
 int count_word(Data *tube){
@@ -21,27 +24,28 @@ int count_word(Data *tube){
     return count;
 }
 
-int operation(Date *tube){
+int operation(Data *tube){
     int result = 0 ;
     for (int i = 0; i < strlen(tube->str); i++){
         while(tube->str[i] != '-' || tube->str[i] != '+' || tube->str[i] != '*'){
-            char *ptr = strtok(tube->str, tube->str[i]);
+            char *ptr = strtok(tube->str, &tube->str[i]);
             while(ptr != NULL)
             {
                 switch (tube->str[i])
                 {
-                    case "-":
+                    case '-':
                         result -= result;
-                    case "+":
+                    case '+':
                         result += result;
-                    case "*":
+                    case '*':
                         result *= result;
                     default:
                         break;
                 }
-                ptr = strtok(NULL, delim);
+                ptr = strtok(NULL, &tube->str[i]);
             }
-            return result;
+            
         }
     }
+    return result;
 }
