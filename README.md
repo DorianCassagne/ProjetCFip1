@@ -19,5 +19,5 @@ Puis le client avec : ./client.exe
 
 # Utilisation
 
-Une fois lancer le client et le serveur, il vous sera proposé un menu avec une liste de fonctions réalisable.
+Après avoir lancé le client et le serveur, il vous sera proposé un menu avec une liste de fonctions réalisable.
 Vous n'aurez qu'a saisir le numero de la fonction pour recevoir les instructions suivantes. 
