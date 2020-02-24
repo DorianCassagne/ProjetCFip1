@@ -25,30 +25,30 @@ void startClient(){
         printf(" 4 - Probabilitée de caractere ");
         printf(" 5 - Probabilitée de mot  ");
         
-        scanf("%d", id);
+        scanf("%d", &id);
         myStrcat(dat->codeRet, id);
 
         printf("Veuillez envoyer votre données, soit du texte brut, soit fichier texte");
 
-        scanf("%s", str);
+        scanf("%s", &str);
         myStrcat(dat->str, str);
         sendStructure(dat, tube);
 
         Data* datRcv = reciveStructure(tube);
         if (datRcv->data == 0){
-            printf(datRcv->str)
+            printf("%s",datRcv->str);
         }else if (datRcv->data == 1){
-            printf(datRcv->str)
+            printf("%s",datRcv->str);
             while (datRcv->data == 1){
                 Data* datRcv = reciveStructure(tube);
-                printf(datRcv->str)
+                printf("%s",datRcv->str);
             } 
         }else{
-            printf("Il y a eu une erreur de traitement")
+            printf("Il y a eu une erreur de traitement");
         }
 
         printf("Avez-vous fini ? [Y/N]");
-        scanf("%s", fin);
+        scanf("%s", &fin);
 
         if( fin == 'N') break;
     }
