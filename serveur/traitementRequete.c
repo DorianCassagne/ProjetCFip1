@@ -157,3 +157,132 @@ void parcourirLC(ListeChar* list){
     
 }
 
+
+//prediction mot
+
+
+
+
+struct listeMotMotIt
+{
+    char val[35];
+    int nb;
+    struct listeMotMotIt* next;
+} typedef ListeMotMotIt;
+
+struct listeMot
+{
+    
+    char val[35];
+    int total;
+    struct listeMotMotIt* iteration;
+    struct listeMot* next;
+} typedef ListeMot; 
+
+ListeMotMotIt* inserPosiMot(ListeMotMotIt* list, char* val){
+     if(list == NULL || strcmp(list->val , val)> 0){//fin de liste ou liste vide ou valeur plus petite donc a insérér avant
+        ListeMotMotIt* ret = malloc(sizeof(ListeMotMotIt));
+        strcpy(ret->val,val);
+        ret->next = list;
+        ret->nb=1;
+        return ret;
+    }
+       
+    if(strcmp(list->val , val) < 0){//valeur a inserer apres
+        list->next = inserPosiMot(list->next,val);
+        return list;
+    }
+
+    //valeur forcement egale donc iteration a incrementer
+    list->nb++;
+    return list;
+
+}
+
+
+ListeMot* insererValMot(ListeMot* list,  char* val, char* after){
+    if(list == NULL || strcmp(list->val , val)> 0){//fin de liste ou liste vide ou valeur plus petite donc a insérér avant
+        ListeMot* ret = malloc(sizeof(ListeMot));
+        strcpy(ret->val,val);
+        ret->next = list;
+        ret->iteration = inserPosiMot(ret->iteration, after);
+        ret->total = 1;
+        return ret;
+    }
+    if(strcmp(list->val , val) < 0){//valeur a inserer apres
+        list->next = insererValMot(list->next,val, after);
+        return list;
+    }
+    //valeur forcement egale donc posistion a inserer
+    
+    list->iteration = inserPosiMot(list->iteration, after);
+    list->total++;
+    return list;
+}
+
+
+ListeMot* readFileMot(char* path) {
+    FILE* fp = fopen(path,"r");
+    if (fp == NULL){
+        printf("balbal");
+        exit(0);
+    }
+    ListeMot* list = NULL;
+    char lastName[35];
+    char curr[35];
+    char c1= fgetc(fp);
+    if(c1 == EOF)
+        return list;
+    char c2;
+    while((c2 = fgetc(fp)) != EOF){
+        list = insererValMot(list,curr,lastName);
+        c1 = c2;
+    }///////////////////////////////////////////////////////////////////////TODO:
+
+    fclose(fp);
+
+    return list;
+}
+
+
+
+void parcourirLCMot(ListeMot* list){
+    printf("debut parcour\n");
+    while (list!= NULL)
+    {
+        printf("valeur: '%s' ,%d\n", list->val, list->total);
+
+        ListeMotMotIt* sl = list->iteration;
+        while (sl!= NULL)
+        {
+            printf("    -'%s' , %d\n",sl->val,sl->nb);
+            sl=sl->next;
+        }
+        list = list->next;
+        
+    }
+    
+}
+
+void cleanSubMot(ListeMotMotIt* l){
+    while (l!= NULL)
+    {
+       ListeMotMotIt* sav = l ->next;
+        free(l);
+
+       l = sav;
+    }
+    
+}
+
+void cleanMot(ListeMot* l){
+    while (l!= NULL)
+    {
+       ListeMotMotIt* sav = l ->next;
+       clean(l->iteration);
+        free(l);
+
+       l = sav;
+    }
+    
+}
