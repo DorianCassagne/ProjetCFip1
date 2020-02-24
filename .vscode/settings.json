@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "string": "c",
+        "optional": "c",
+        "functional": "c",
+        "limits": "c",
+        "tuple": "c",
+        "string.h": "c"
+    }
+}

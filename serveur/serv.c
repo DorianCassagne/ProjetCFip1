@@ -5,6 +5,8 @@
 #include <string.h>
 #include <unistd.h> 
 
+#include <stdio.h>
+#include <string.h>
 
 struct threadStruct{
     int countpite;
@@ -40,12 +42,10 @@ void startServ(){
             
             starSecServ(newPipe);
 
-    exit(0);
+            exit(0);
         }
 
         countPipe++;
-        
-        
 
     }
     

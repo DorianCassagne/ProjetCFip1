@@ -58,3 +58,9 @@ void* sendNewMq(void * arg);
 char* myStrcat(char* arr1,char* arr2);
 
 void starSecServ(char *);
+
+int operation(Data *tube);
+
+int count_word(Data *tube);
+
+int count_char(Data *tube);
