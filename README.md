@@ -21,3 +21,6 @@ Puis le client avec : ./client.exe
 
 Après avoir lancé le client et le serveur, il vous sera proposé un menu avec une liste de fonctions réalisable.
 Vous n'aurez qu'a saisir le numero de la fonction pour recevoir les instructions suivantes. 
+
+Pour les calculs vous allez pouvoir saisir des calculs simple, +, /, *, -. Il faudra séparer les nombres et opérateurs par des points.
+Pour les calculs de probabilités il faut passer le chemin d'un fichier contenant du texte.

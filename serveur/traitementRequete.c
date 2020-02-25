@@ -56,6 +56,9 @@ char*  operation(Data *tube){
             case '+':
                 i += valeur;
                 break;
+            case '/1':
+                i /= valeur;
+                break;
             
             default:
                 break;

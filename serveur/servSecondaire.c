@@ -43,11 +43,26 @@ void starSecServ(char*  newPath){
                 break;
 
             case 4l:
+                //char* str = getProbaChar(dataRcv->str);
+                // char tempo[] = str;
                 strcpy(dataSend->str, getProbaChar(dataRcv->str)); 
                 dataSend->codeRet = 0;
                 sendStructure(dataSend, tube);
+                // if (sizeof(str)>250)
+                // {
+                //     dataSend->codeRet = 1;
+                // }else{
+                //     trcpy(dataSend->str, str); 
+                //     sendStructure(dataSend, tube);
+                // }
+
+                // do
+                // {
+                    
+                // } while (dataSend->codeRet = 1);
+
                 break;
-            
+
             case 5l:
                 strcpy(dataSend->str, getProbaMot(dataRcv->str)); 
                 dataSend->codeRet = 0;

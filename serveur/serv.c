@@ -39,7 +39,6 @@ void startServ(){
         sprintf(str, "%d", countPipe);
         char * newPipe = myStrcat(LogPath, str);
         if(fork()==0) {
-            
             starSecServ(newPipe);
 
             exit(0);
