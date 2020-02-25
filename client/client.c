@@ -1,5 +1,6 @@
 #include "head.h"
 #include <stdio.h>
+#include <string.h>
 void startClient(){
     
     TubeStruct* mainTube = initPipeStruc();
@@ -26,12 +27,12 @@ void startClient(){
         printf(" 5 - Probabilitée de mot  ");
         
         scanf("%d", &id);
-        myStrcat(dat->codeRet, id);
+        strcpy(dat->codeRet, id);
 
         printf("Veuillez envoyer votre données, soit du texte brut, soit fichier texte");
 
         scanf("%s", &str);
-        myStrcat(dat->str, str);
+        strcpy(dat->str, str);
         sendStructure(dat, tube);
 
         Data* datRcv = reciveStructure(tube);

@@ -87,7 +87,7 @@ void * sendNewMq(void * args){
     sprintf(str, "%d", arg->countpite);
     Data* d = malloc(sizeof(Data));
     strcpy(d->str,LogPath);
-    strcat(d->str,str );
+    strcat(d->str,str);
     sendStructure(d, arg->pipe);
 
     
