@@ -83,7 +83,7 @@ void sendStructure(Data *data, TubeStruct* tub){
   writeLog(myStrcat("donnée envoyé : " , data->str));
 }
 
-Data* reciveStructure(TubeStruct* tub){
+Data* reciveStruture(TubeStruct* tub){
   Data* dataRcv = malloc(sizeof(Data));
   read (tub->read, dataRcv, sizeof(Data));
   printf("%s\n", dataRcv->str);

@@ -28,7 +28,7 @@ int count_word(Data *tube){
     return count;
 }
 
-int operation(Data *tube){
+char*  operation(Data *tube){
     int result = 0 ;
     for (int i = 0; i < strlen(tube->str); i++){
         while(tube->str[i] != '-' || tube->str[i] != '+' || tube->str[i] != '*'){
@@ -51,7 +51,10 @@ int operation(Data *tube){
             
         }
     }
-    return result;
+
+    char* str = malloc(sizeof(char)*10);
+    sprintf(str, "%d", result);
+    return str;
 }
 
 

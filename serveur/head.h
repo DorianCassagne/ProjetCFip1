@@ -69,7 +69,7 @@ char* myStrcat(char* arr1,char* arr2);
 
 void starSecServ(char *);
 
-int operation(Data *tube);
+char* operation(Data *tube);
 
 int count_word(Data *tube);
 
