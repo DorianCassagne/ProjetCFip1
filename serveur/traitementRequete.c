@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
+
 int count_char(Data *tube){
     return strlen(tube->str);
 }
@@ -139,20 +141,52 @@ ListeChar* readFile(char* path) {
 
 
 
-void parcourirLC(ListeChar* list){
-    printf("debut parcour\n");
+char* parcourirLC(ListeChar* list){
+    char* ret = malloc(sizeof(char));
+    ret[0]= '\0';
+    ret = catStr(ret, "debut parcour\n");
     while (list!= NULL)
     {
-        printf("valeur: '%c' ,%d\n", list->val, list->total);
+        char str[100];
+        snprintf(str, 100,"valeur: '%c' ,%d\n", list->val, list->total);
+
+        ret = catStr(ret, str);
 
         ListeCharIt* sl = list->iteration;
         while (sl!= NULL)
         {
-            printf("    -'%c' , %d\n",sl->val,sl->nb);
+            
+            snprintf(str, 100,"    -'%c' , %d\n",sl->val,sl->nb);
+            
+            ret = catStr(ret, str);
             sl=sl->next;
         }
         list = list->next;
         
+    }
+    return ret;
+    
+}
+
+void cleanSub(ListeCharIt* l){
+    while (l!= NULL)
+    {
+       ListeCharIt* sav = l ->next;
+        free(l);
+
+       l = sav;
+    }
+    
+}
+
+void clean(ListeChar* l){
+    while (l!= NULL)
+    {
+       ListeChar* sav = l ->next;
+       cleanSub(l->iteration);
+        free(l);
+
+       l = sav;
     }
     
 }
@@ -165,7 +199,7 @@ void parcourirLC(ListeChar* list){
 
 struct listeMotMotIt
 {
-    char val[35];
+    char val[100];
     int nb;
     struct listeMotMotIt* next;
 } typedef ListeMotMotIt;
@@ -173,7 +207,7 @@ struct listeMotMotIt
 struct listeMot
 {
     
-    char val[35];
+    char val[100];
     int total;
     struct listeMotMotIt* iteration;
     struct listeMot* next;
@@ -227,40 +261,51 @@ ListeMot* readFileMot(char* path) {
         printf("balbal");
         exit(0);
     }
+
     ListeMot* list = NULL;
-    char lastName[35];
-    char curr[35];
-    char c1= fgetc(fp);
-    if(c1 == EOF)
-        return list;
-    char c2;
-    while((c2 = fgetc(fp)) != EOF){
-        list = insererValMot(list,curr,lastName);
-        c1 = c2;
-    }///////////////////////////////////////////////////////////////////////TODO:
+    char last[80];
+    last[0]='\0';
+    char buf[80];
+    while( fscanf(fp, "%s", buf) != EOF )
+        {
+            
+            list = insererValMot(list,buf,last);
+            strcpy(last,buf);
+            
+        }
 
     fclose(fp);
-
     return list;
 }
 
 
 
-void parcourirLCMot(ListeMot* list){
-    printf("debut parcour\n");
+
+
+char* parcourirLCMot(ListeMot* list){
+    char* ret = malloc(sizeof(char));
+    ret[0]= '\0';
+    ret = catStr(ret, "debut parcour\n");
     while (list!= NULL)
     {
-        printf("valeur: '%s' ,%d\n", list->val, list->total);
+        char str[150];
+        snprintf(str, 149,"valeur: '%s' ,%d\n", list->val, list->total);
+
+        ret = catStr(ret, str);
 
         ListeMotMotIt* sl = list->iteration;
         while (sl!= NULL)
         {
-            printf("    -'%s' , %d\n",sl->val,sl->nb);
+            
+            snprintf(str, 149,"    -'%s' , %d\n",sl->val,sl->nb);
+            
+            ret = catStr(ret, str);
             sl=sl->next;
         }
         list = list->next;
         
     }
+    return ret;
     
 }
 
@@ -278,11 +323,28 @@ void cleanSubMot(ListeMotMotIt* l){
 void cleanMot(ListeMot* l){
     while (l!= NULL)
     {
-       ListeMotMotIt* sav = l ->next;
-       clean(l->iteration);
+       ListeMot* sav = l ->next;
+       cleanSubMot(l->iteration);
         free(l);
 
        l = sav;
     }
     
+}
+
+
+
+char * getProbaChar(char* path){
+    return parcourirLC(readFile(path));
+}
+
+char * getProbaMot(char* path){
+    return parcourirLCMot(readFileMot(path));
+}
+
+
+
+void* testFonct(){
+    char * str = parcourirLCMot(readFileMot("./serveur/general.c"));
+    printf("%s",str);
 }
