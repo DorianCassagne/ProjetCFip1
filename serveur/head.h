@@ -71,6 +71,6 @@ void starSecServ(char *);
 
 char* operation(Data *tube);
 
-int count_word(Data *tube);
+char* count_word(Data *tube);
 
-int count_char(Data *tube);
+char* count_char(Data *tube);

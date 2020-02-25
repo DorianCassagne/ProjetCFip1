@@ -21,23 +21,44 @@ void starSecServ(char*  newPath){
 
     while(1){
         Data* dataRcv = reciveStruture(tube);
-        
-
-
-
+        printf("data str : %s",dataRcv->str );
         switch (dataRcv->data)
         {
-        case 1l:
-            strcpy(dataSend->str, "1\n"); //operation(dataRcv));
-            dataSend->codeRet = 0;
-            sendStructure(dataSend, tube);
-            break;
-        
-        default:
-            strcpy(dataSend->str, "operation inconnue\n");
-            dataSend->codeRet = 0;
-            sendStructure(dataSend, tube);
-            break;
+            case 1l:
+                strcpy(dataSend->str, operation(dataRcv)); 
+                dataSend->codeRet = 0;
+                sendStructure(dataSend, tube);
+                break;
+
+            case 2l:
+                strcpy(dataSend->str, count_word(dataRcv)); 
+                dataSend->codeRet = 0;
+                sendStructure(dataSend, tube);
+                break;
+
+            case 3l:
+                strcpy(dataSend->str, count_char(dataRcv)); 
+                dataSend->codeRet = 0;
+                sendStructure(dataSend, tube);
+                break;
+
+            case 4l:
+                strcpy(dataSend->str, getProbaChar(dataRcv->str)); 
+                dataSend->codeRet = 0;
+                sendStructure(dataSend, tube);
+                break;
+            
+            case 5l:
+                strcpy(dataSend->str, getProbaMot(dataRcv->str)); 
+                dataSend->codeRet = 0;
+                sendStructure(dataSend, tube);
+                break;
+
+            default:
+                strcpy(dataSend->str, "operation inconnue\n");
+                dataSend->codeRet = 0;
+                sendStructure(dataSend, tube);
+                break;
         }
 
         free(dataRcv);

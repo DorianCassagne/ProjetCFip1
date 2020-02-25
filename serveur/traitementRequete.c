@@ -5,11 +5,13 @@
 
 
 
-int count_char(Data *tube){
-    return strlen(tube->str);
+char* count_char(Data *tube){
+    char* str = malloc(sizeof(char)*10);
+    sprintf(str, "%lu", strlen(tube->str));
+    return str;
 }
 
-int count_word(Data *tube){
+char* count_word(Data *tube){
     int count=0,i,len;
     char lastC;
     len=strlen(tube->str);
@@ -25,35 +27,47 @@ int count_word(Data *tube){
         }
         lastC = tube->str[i];
     }
-    return count;
+    char* str = malloc(sizeof(char)*10);
+    sprintf(str, "%d", count);
+    return str;
 }
 
 char*  operation(Data *tube){
+    printf("test ope");
     int result = 0 ;
-    for (int i = 0; i < strlen(tube->str); i++){
-        while(tube->str[i] != '-' || tube->str[i] != '+' || tube->str[i] != '*'){
-            char *ptr = strtok(tube->str, &tube->str[i]);
-            while(ptr != NULL)
+    char *ptr = strtok(tube->str, ".");
+    char tempo[3];
+    int i = atoi(ptr);
+    int valeur;
+    char operation = '*';
+    while(ptr != NULL)
+    {
+        ptr = strtok(NULL, ".");
+        if(ptr[0] < '9'|| ptr[0] > '0'){
+            valeur = atoi(ptr);
+            switch (operation)
             {
-                switch (tube->str[i])
-                {
-                    case '-':
-                        result -= result;
-                    case '+':
-                        result += result;
-                    case '*':
-                        result *= result;
-                    default:
-                        break;
-                }
-                ptr = strtok(NULL, &tube->str[i]);
-            }
+            case '*':
+                i *= valeur;
+                break;
+            case '-':
+                i -= valeur;
+                break;
+            case '+':
+                i += valeur;
+                break;
             
+            default:
+                break;
+            }
+        }else{
+            operation = ptr[0];
         }
-    }
 
+    }
+    printf("test result : %d\n", i);
     char* str = malloc(sizeof(char)*10);
-    sprintf(str, "%d", result);
+    sprintf(str, "%d", i);
     return str;
 }
 

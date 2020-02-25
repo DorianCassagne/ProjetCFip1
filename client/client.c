@@ -26,11 +26,10 @@ Data* recupererInput(){
     d->data = id;
 
     printf("Veuillez envoyer votre données, soit du texte brut, soit fichier texte\n");
-
-    scanf("%s", str);
+    scanf("%s", str)
+    //fgets(str, 250, stdin);
     strcpy(d->str, str);
     return d;
-
 }
 
 void affichageRecu(TubeStruct* tube){
@@ -63,7 +62,7 @@ void startClient(){
 
     createReadingPipe(tube, dat->str);
 
-    printf("Bonjour");
+    printf("Bonjour\n");
 
     while (1){
 
@@ -76,9 +75,9 @@ void startClient(){
         affichageRecu(tube);
 
         char fin;
-        printf("Avez-vous fini ? [Y/N]\n");
-        scanf("%s", &fin);
-
+        printf("\nAvez-vous fini ? [Y/N]\n");
+        scanf("%c", &fin);
+        printf("%c", fin);
         if( fin == 'Y') break;
     }
 }
