@@ -16,33 +16,33 @@ void starSecServ(char*  newPath){
     createReadingPipe(tube, newPath);
     createWritingPipe(tube, newPath);
 
-    fflush(stdout);
     Data* dataSend = malloc(sizeof(Data));
     char tempo[15];  
 
-    Data* dataRcv = reciveStruture(tube);
-    
-    fflush(stdout);
-    printf("    dataRcv : %s\n",dataRcv->str);
-    printf("    dataRcv : %ld\n",dataRcv->data);
-    fflush(stdout);
+    while(1){
+        Data* dataRcv = reciveStruture(tube);
+        
 
 
-    switch (dataRcv->data)
-    {
-    case 1l:
-        strcpy(dataRcv->str, operation(dataRcv));
-        break;
-    
-    default:
-        printf("pbnl\n");
-        break;
-    }
 
-    dataRcv->codeRet = 0;
-    sendStructure(dataRcv, tube);
+        switch (dataRcv->data)
+        {
+        case 1l:
+            strcpy(dataSend->str, "1\n"); //operation(dataRcv));
+            dataSend->codeRet = 0;
+            sendStructure(dataSend, tube);
+            break;
+        
+        default:
+            strcpy(dataSend->str, "operation inconnue\n");
+            dataSend->codeRet = 0;
+            sendStructure(dataSend, tube);
+            break;
+        }
 
-    
+        free(dataRcv);
+
+    }    
 
     // switch (dataRcv->data)
     // {
