@@ -5,6 +5,7 @@
         "functional": "c",
         "limits": "c",
         "tuple": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "cstring": "c"
     }
 }

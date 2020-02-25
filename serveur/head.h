@@ -23,6 +23,16 @@ struct data
 }typedef Data;
 
 
+void testFonct();
+
+char * getProbaChar(char* path);
+
+char * getProbaMot(char* path);
+
+char* catStr(char* c1,char* c2);
+
+char* catStrChar(char* c1,char c);
+
 void initPath();
 
 void initLogFile();

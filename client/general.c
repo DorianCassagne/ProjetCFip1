@@ -55,6 +55,7 @@ void sendStructure(Data *data, TubeStruct* tub){
 
 Data* reciveStructure(TubeStruct* tub){
   Data* dataRcv = malloc(sizeof(Data));
+  writeLog("struct non recu");
   read (tub->read, dataRcv, sizeof(Data));
   writeLog("struct recu");
   return dataRcv;

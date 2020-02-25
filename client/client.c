@@ -10,7 +10,7 @@ void startClient(){
     //fin reception premier message
     int id;
     char str[250];
-    char fin;
+    
     TubeStruct* tube = initPipeStruc();
     createWritingPipe(tube, dat->str);
 
@@ -19,38 +19,44 @@ void startClient(){
     printf("Bonjour");
 
     while (1){
-        printf("Veuillez choisir une fonctionnalitée");
-        printf(" 1 - Calcul ");
-        printf(" 2 - Compter les mots ");
-        printf(" 3 - Compter les caracteres ");
-        printf(" 4 - Probabilitée de caractere ");
-        printf(" 5 - Probabilitée de mot  ");
+        printf("Veuillez choisir une fonctionnalitée\n");
+        printf(" 1 - Calcul \n");
+        printf(" 2 - Compter les mots \n");
+        printf(" 3 - Compter les caracteres \n");
+        printf(" 4 - Probabilitée de caractere \n");
+        printf(" 5 - Probabilitée de mot  \n");
         
         scanf("%d", &id);
-        strcpy(dat->codeRet, id);
+        dat->data = id;
 
-        printf("Veuillez envoyer votre données, soit du texte brut, soit fichier texte");
+        printf("Veuillez envoyer votre données, soit du texte brut, soit fichier texte\n");
 
-        scanf("%s", &str);
+        scanf("%s", str);
+        printf("test\n");
         strcpy(dat->str, str);
+        printf("test3 : %s\n", dat->str);
         sendStructure(dat, tube);
-
+        printf("test1\n");
         Data* datRcv = reciveStructure(tube);
-        if (datRcv->data == 0){
+        printf("test1\n");
+        fflush(stdout);
+        printf("datRcv : %s", datRcv->str);
+        if (datRcv->codeRet == 0){
             printf("%s",datRcv->str);
-        }else if (datRcv->data == 1){
+        }else if (datRcv->codeRet == 1){
             printf("%s",datRcv->str);
-            while (datRcv->data == 1){
+            while (datRcv->codeRet == 1){
                 Data* datRcv = reciveStructure(tube);
                 printf("%s",datRcv->str);
             } 
         }else{
-            printf("Il y a eu une erreur de traitement");
+            printf("Il y a eu une erreur de traitement\n");
         }
 
-        printf("Avez-vous fini ? [Y/N]");
+        char fin;
+        printf("Avez-vous fini ? [Y/N]\n");
         scanf("%s", &fin);
 
-        if( fin == 'N') break;
+        if( fin == 'Y') break;
     }
 }

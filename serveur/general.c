@@ -66,6 +66,18 @@ char* myStrcat(char* arr1,char* arr2){
     return ret;
 }
 
+char* catStr(char* c1,char* c2){
+  c1= realloc(c1,sizeof(char)* (strlen(c1)+ strlen(c2)+1));
+  strcat(c1,c2);
+  return c1;
+}
+char* catStrChar(char* c1,char c){
+  char c2[2];
+  c2[0]= c;
+  c2[1]='\0';
+  return catStr(c1,c2);
+}
+
 void sendStructure(Data *data, TubeStruct* tub){
   write (tub->write, data, sizeof(Data));
   writeLog(myStrcat("donnée envoyé : " , data->str));
