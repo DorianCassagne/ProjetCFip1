@@ -11,6 +11,24 @@
 #include <stdio.h>
 #include <string.h>
 
+void sendChar(char* txt, TubeStruct* tube ,Data* dataSend){
+    while(strlen(txt)> 245)
+    {
+        // printf("                  %ld\n",strlen(txt) );
+        strncpy(dataSend->str,txt,245);
+        dataSend->str[245]='\0';
+        dataSend->codeRet=1;
+        sendStructure(dataSend,tube);
+        txt =  txt+245;
+    }
+    strcpy(dataSend->str, txt);
+    dataSend->codeRet=0;
+    sendStructure(dataSend,tube);
+    return;
+    
+    
+}
+
 void starSecServ(char*  newPath){
     TubeStruct* tube = initPipeStruc();
     createReadingPipe(tube, newPath);
@@ -18,10 +36,10 @@ void starSecServ(char*  newPath){
 
     Data* dataSend = malloc(sizeof(Data));
     char tempo[15];  
+    char* str;
 
     while(1){
         Data* dataRcv = reciveStruture(tube);
-        printf("data str : %s",dataRcv->str );
         switch (dataRcv->data)
         {
             case 1l:
@@ -43,30 +61,15 @@ void starSecServ(char*  newPath){
                 break;
 
             case 4l:
-                //char* str = getProbaChar(dataRcv->str);
-                // char tempo[] = str;
-                strcpy(dataSend->str, getProbaChar(dataRcv->str)); 
-                dataSend->codeRet = 0;
-                sendStructure(dataSend, tube);
-                // if (sizeof(str)>250)
-                // {
-                //     dataSend->codeRet = 1;
-                // }else{
-                //     trcpy(dataSend->str, str); 
-                //     sendStructure(dataSend, tube);
-                // }
-
-                // do
-                // {
-                    
-                // } while (dataSend->codeRet = 1);
-
+                str= getProbaChar(dataRcv->str); 
+                sendChar(str,tube,dataSend);
+                free(str);
                 break;
 
             case 5l:
-                strcpy(dataSend->str, getProbaMot(dataRcv->str)); 
-                dataSend->codeRet = 0;
-                sendStructure(dataSend, tube);
+                str= getProbaMot(dataRcv->str); 
+                sendChar(str,tube,dataSend);
+                free(str);
                 break;
 
             default:

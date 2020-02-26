@@ -4,6 +4,27 @@
 #include <stdlib.h>
 
 
+
+char* recupere(int* compteur){
+    char c;
+    (*compteur)=1;
+    int boolean=1;
+    char* lien=(char*)malloc(sizeof(char));
+    while(boolean){
+        c=fgetc(stdin);
+        if((*compteur)!=1 && c=='\n'){
+            boolean=0;
+        }else if(c!='\n'){
+            lien[(*compteur)-1]=c;
+            (*compteur)++;
+            lien=(char*)realloc(lien,sizeof(char)*(*compteur));
+        }
+        
+    }
+    lien[(*compteur)-1]='\0';
+    return lien;
+}
+
 void affichageMenu(){
 
         printf("Veuillez choisir une fonctionnalitée\n");
@@ -26,9 +47,8 @@ Data* recupererInput(){
     d->data = id;
 
     printf("Veuillez envoyer votre données, soit du texte brut, soit fichier texte\n");
-    scanf("%s", str)
-    //fgets(str, 250, stdin);
-    strcpy(d->str, str);
+    int *t = &id;
+    strcpy(d->str, recupere(t));
     return d;
 }
 
@@ -39,12 +59,13 @@ void affichageRecu(TubeStruct* tube){
     if (datRcv->codeRet == 0){
         printf("%s",datRcv->str);
         fflush(stdout);
-        }else if (datRcv->codeRet == 1){
+    }else if (datRcv->codeRet == 1){
+        printf("%s",datRcv->str);
+        while (datRcv->codeRet == 1){
+            free (datRcv);
+            datRcv = reciveStructure(tube);
             printf("%s",datRcv->str);
-            while (datRcv->codeRet == 1){
-                Data* datRcv = reciveStructure(tube);
-                printf("%s",datRcv->str);
-            } 
+        } 
     }else{
         printf("Il y a eu une erreur de traitement\n");
     }

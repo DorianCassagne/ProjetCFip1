@@ -12,7 +12,7 @@
 #include <sys/fcntl.h>
 
 void writeLog(char * str){
-  printf("%s\n",str);
+  //printf("%s\n",str);
 }
 
 TubeStruct* initPipeStruc(){

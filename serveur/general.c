@@ -4,6 +4,10 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdlib.h>
 
 #include <string.h>
  
@@ -79,8 +83,12 @@ char* catStrChar(char* c1,char c){
 }
 
 void sendStructure(Data *data, TubeStruct* tub){
-  write (tub->write, data, sizeof(Data));
+  char a[2] ;
+  a[0]= '0'+ data->codeRet;
+  a[1]='\0';
+  writeLog(myStrcat("donnée ret envoyé : " , a));
   writeLog(myStrcat("donnée envoyé : " , data->str));
+  write (tub->write, data, sizeof(Data));
 }
 
 Data* reciveStruture(TubeStruct* tub){

@@ -33,18 +33,20 @@ char* count_word(Data *tube){
 }
 
 char*  operation(Data *tube){
-    printf("test ope");
     int result = 0 ;
-    char *ptr = strtok(tube->str, ".");
+    char *ptr = strtok(tube->str, " ");
     char tempo[3];
     int i = atoi(ptr);
     int valeur;
     char operation = '*';
+
+    ptr = strtok(NULL, " ");
     while(ptr != NULL)
     {
-        ptr = strtok(NULL, ".");
-        if(ptr[0] < '9'|| ptr[0] > '0'){
+        printf("val = %s    ,%d\n", ptr, i);
+        if(ptr[0] <= '9'&& ptr[0] >= '0'){
             valeur = atoi(ptr);
+            printf("--%d  %c \n",valeur , operation);
             switch (operation)
             {
             case '*':
@@ -56,7 +58,7 @@ char*  operation(Data *tube){
             case '+':
                 i += valeur;
                 break;
-            case '/1':
+            case '/':
                 i /= valeur;
                 break;
             
@@ -66,6 +68,8 @@ char*  operation(Data *tube){
         }else{
             operation = ptr[0];
         }
+
+        ptr = strtok(NULL, " ");
 
     }
     printf("test result : %d\n", i);
