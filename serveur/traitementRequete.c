@@ -146,7 +146,7 @@ ListeChar* readFile(char* path) {
     FILE* fp = fopen(path,"r");
     if (fp == NULL){
         printf("balbal");
-        exit(0);
+        return NULL;
     }
     ListeChar* list = NULL;
     char c1= fgetc(fp);
@@ -284,7 +284,7 @@ ListeMot* readFileMot(char* path) {
     FILE* fp = fopen(path,"r");
     if (fp == NULL){
         printf("balbal");
-        exit(0);
+        return NULL;
     }
 
     ListeMot* list = NULL;
